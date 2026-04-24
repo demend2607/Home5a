@@ -1,0 +1,114 @@
+# ==================
+# Python (Backend)
+# ==================
+
+# Виртуальное окружение
+venv/
+env/
+ENV/
+.venv
+.env
+
+# Кэш и байт-код Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Утилиты упаковки / тестирования
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.mypy_cache/
+.ruff_cache/
+.dmypy.json
+dmypy.json
+
+# Логи и БД
+*.log
+*.sqlite
+*.sqlite3
+*.db
+
+# Файлы конфигурации с секретами
+.env
+.env.*
+!.env.example
+
+# Результаты сборки
+/build/
+/dist/
+*.egg-info/
+*.egg
+.eggs/
+
+# IDEs и редакторы
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# ==================
+# React (Frontend)
+# ==================
+
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Сборки фронтенда
+/build/
+/dist/
+/frontend/build/
+/frontend/dist/
+
+# Кэш фронтенда
+.eslintcache
+.cache/
+.parcel-cache/
+
+# Файлы окружения фронтенда
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Временные файлы
+*.tmp
+*.temp
+
+# ==================
+# Общие для любых проектов
+# ==================
+
+# Системные файлы
+Thumbs.db
+desktop.ini
+
+# Резервные копии
+*.bak
+*.backup
+*.old
+
+# Файлы отладки
+*.pid
+*.seed
+*.pid.lock
+
+# ==================
+# Ваши специфичные файлы (если нужно игнорировать конкретно)
+# ==================
+
+# Если вы генерируете какие-то локальные конфиги
+/local_config.yaml
+/custom_secrets/
+
+# Файлы логов приложения
+/app.log
+/apps/*.log
