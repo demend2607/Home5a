@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+.info_panel {
+    font-size: 30px;
+    color: #8cc003;
+    height: 50px;
+    @apply flex items-center;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.info_top {
+    border-bottom: 2px solid #fff;
+}
+
+.info_bot {
+    border-top: 2px solid #fff;
+}
+
+.marquee {
+    position: absolute;
+    white-space: nowrap;
+    will-change: transform;
+    animation: marquee-right var(--marquee-duration) linear infinite;
+}
+
+@keyframes marquee-right {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100vw);
+    }
+}

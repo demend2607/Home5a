@@ -1,0 +1,12 @@
+from fastapi import APIRouter
+
+from core.config import settings
+from .health_check import router as health_check_router
+from .weather import router as weather_router
+# + need main router
+
+
+router = APIRouter(prefix=settings.api.v1.prefix)
+
+router.include_router(health_check_router)
+router.include_router(weather_router)

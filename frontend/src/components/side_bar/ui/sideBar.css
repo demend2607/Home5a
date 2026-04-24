@@ -1,0 +1,13 @@
+.side_bar {
+    .numbers {
+        font-size: 40px;
+    }
+
+    .text {
+        font-size: 30px;
+    }
+}
+
+.weather {
+    border: 1px solid #686666;
+}
