@@ -1,6 +1,10 @@
 .side_bar {
     .numbers {
-        font-size: 40px;
+        font-size: 46px;
+
+        & svg {
+            margin-right: 5px;
+        }
     }
 
     .text {
@@ -10,4 +14,18 @@
 
 .weather {
     border: 1px solid #686666;
+}
+
+.with_icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.weather_icon {
+    margin: -40px 0 -50px 0;
+}
+
+.support_icon {
+    margin: -10px;
 }

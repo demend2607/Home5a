@@ -1,5 +1,5 @@
-import Gallery from "../../../components/gallery/ui/Gallery";
-import SideBar from "../../../components/side_bar/ui/SideBar";
+import Gallery from "../../gallery/ui/Gallery";
+import SideBar from "../../side_bar/ui/SideBar";
 import "./generalInfo.css";
 
 export default function GeneralInfo() {
