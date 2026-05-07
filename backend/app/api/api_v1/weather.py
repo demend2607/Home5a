@@ -1,30 +1,38 @@
-from fastapi import APIRouter, HTTPException
-import httpx
+import asyncio
+
+from fastapi import APIRouter, Request
+
+from schemas.weather import WeatherResponse
+from services.ha_exceptions import HAAuthError, HANotFoundError, HAClientConnectionError, HAClientError
 
 from core.config import settings
-from schamas.weather import WeatherResponse
+from services.weather_map import WEATHER_DESCRIPTIONS
 
-router = APIRouter(prefix=settings.api.v1.weather)
+router = APIRouter(prefix=settings.api.v1.weather, tags=["Weather"])
+
+sensors = {
+    "temperature_sensor": "sensor.0xa4c13828c74f0ad3_temperature",
+    "temperature_forcast": "weather.home",
+}
 
 
-@router.get("")
-async def get_weather():
-    HA_URL = "http://192.168.100.40:8123"
-    HA_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIxMjdlMzFiODg5NjM0MGIzODU1MDFmODc2NzQxMjE3NiIsImlhdCI6MTc3Njk1MTQ5OSwiZXhwIjoyMDkyMzExNDk5fQ.53nO17f1Olpgs2Ap5PqXMx5xRsAOtRvN8lQ1Jt_eoJY"
-    entity_id = "weather.home"
-    async with httpx.AsyncClient() as client:
-        headers = {"Authorization": f"Bearer {HA_TOKEN}"}
-    async with httpx.AsyncClient() as client:
-        try:
-            # Делаем запрос к API Home Assistant
-            response = await client.get(f"{HA_URL}/api/states/{entity_id}", headers=headers, timeout=10.0)
-            response.raise_for_status()  # Выбросит исключение для статусов 4xx/5xx
-            return response.json()  # Возвращаем JSON с состоянием сущности
-        except httpx.HTTPStatusError as e:
-            if e.response.status_code == 404:
-                raise HTTPException(
-                    status_code=404, detail=f"Сущность с ID '{entity_id}' не найдена.")
-            raise HTTPException(
-                status_code=e.response.status_code, detail=e.response.text)
-        except Exception as e:
-            raise HTTPException(status_code=500, detail=str(e))
+@router.get("", response_model=WeatherResponse)
+async def get_weather(request: Request):
+    ha_client = request.app.state.ha_client
+
+    temp_task = ha_client.get_single_state(sensors["temperature_sensor"])
+    forecast_task = ha_client.get_whole_state(sensors["temperature_forcast"])
+
+    temp_result, forecast_result = await asyncio.gather(
+        temp_task, forecast_task, return_exceptions=True
+    )
+    forecast_result = {
+        # "description": forecast_result.get("state"),
+        "description": WEATHER_DESCRIPTIONS.get(forecast_result.get("state")),
+        'icon_key': forecast_result.get("state"),
+        "temperature": forecast_result.get("attributes", {}).get("temperature"),
+        "apparent_temperature": forecast_result.get("attributes", {}).get("apparent_temperature"),
+        "humidity": forecast_result.get("attributes", {}).get("humidity"),
+        "wind_speed": forecast_result.get("attributes", {}).get("wind_speed"),
+        "presure": forecast_result.get("attributes", {}).get("pressure"), }
+    return {"temp_from_ha": temp_result, "forecast_temp": forecast_result}

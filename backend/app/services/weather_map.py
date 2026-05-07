@@ -1,0 +1,18 @@
+WEATHER_DESCRIPTIONS = {
+    "clear-night": "Ясная ночь",
+    "sunny": "Солнечно",
+    "clear": "Солнечно",
+    "cloudy": "Облачно",
+    "exceptional": "Аномалия",
+    "fog": "Туман",
+    "hail": "Град",
+    "lightning": "Гроза",
+    "lightning-rainy": "Гроза с дождём",
+    "partlycloudy": "Переменная облачность",
+    "pouring": "Ливень",
+    "rainy": "Дождь",
+    "snowy": "Снег",
+    "snowy-rainy": "Дождь со снегом",
+    "windy": "Ветрено",
+    "windy-variant": "Сильный ветер",
+}
