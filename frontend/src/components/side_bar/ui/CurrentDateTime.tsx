@@ -5,7 +5,7 @@ export default function CurrentDateTime() {
 
   return (
     <div className="flex flex-col gap-2 mb-6">
-      <p className="numbers font-mono">{time}</p>
+      <p className="numbers font-mono text-[50px]!">{time}</p>
       <p className="text">
         {monthName} {year}
       </p>

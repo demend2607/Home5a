@@ -15,11 +15,9 @@ export default function Gallery() {
     return <div className="gallery">No photos</div>;
   }
 
-  // object-contain
   return (
     <div className="gallery relative h-full overflow-hidden mr-2">
       <img src={currentImageUrl} alt={currentImage.name} className="absolute h-full w-full object-contain" />
-      <p className="absolute">{currentImage.id}</p>
     </div>
   );
 }
