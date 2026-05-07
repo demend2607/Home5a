@@ -19,18 +19,18 @@ class ApiPrefix(BaseModel):
     v1: ApiV1Prefix = ApiV1Prefix()
 
 
-class WeatherConfig(BaseModel):
-    api_key: str
-    city: str = "Khabarovsk"
+class HomeConfig(BaseModel):
+    home_url: str
+    api_token: str
 
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_file=".env", extra="ignore", env_nested_delimiter="__"
+        env_file=".env", extra="ignore", env_nested_delimiter="__", env_ignore_empty=True
     )
     run: RunConfig = RunConfig()
     api: ApiPrefix = ApiPrefix()
-    weather: WeatherConfig
+    ha: HomeConfig
 
 
 settings = Settings()
