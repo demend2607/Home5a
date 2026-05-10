@@ -11,14 +11,13 @@ from schemas.gallery import GalleryImage
 router = APIRouter(prefix=settings.api.v1.photo, tags=["Gallery"])
 
 PHOTOS_ROOT = "/app/photos"
-TARGET_FOLDER = "1"
 
 
-def collect_images(root_path: str, base_path_for_url: str = ""):
+def collect_images(root_path: str = "", base_path_for_url: str = ""):
     images = []
 
     full_path = os.path.join(PHOTOS_ROOT, root_path)
-
+    print("full path", full_path)
     for index, entry in enumerate(sorted(os.listdir(full_path)), start=1):
         entry_full = os.path.join(full_path, entry)
         rel_path = os.path.join(
@@ -41,11 +40,11 @@ def collect_images(root_path: str, base_path_for_url: str = ""):
 
 @router.get("/list", response_model=List[GalleryImage])
 async def list_photos():
-    folder_full = os.path.join(PHOTOS_ROOT, TARGET_FOLDER)
+    folder_full = os.path.join(PHOTOS_ROOT)
 
     if not os.path.isdir(folder_full):
         raise HTTPException(404, "Папка не найдена")
-    images = collect_images(TARGET_FOLDER)
+    images = collect_images()
 
     return images
 
@@ -56,7 +55,7 @@ async def get_image(path: str):
     if '..' in safe_path or safe_path.startswith('/'):
         raise HTTPException(403, "Запрещённый путь")
 
-    full_path = os.path.join(PHOTOS_ROOT, TARGET_FOLDER, safe_path)
+    full_path = os.path.join(PHOTOS_ROOT, safe_path)
     if not os.path.isfile(full_path):
         raise HTTPException(404, "Изображение не найдено")
 

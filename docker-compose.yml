@@ -10,7 +10,7 @@ services:
       - "8000:8000"
     volumes:
       - ./backend:/app
-      - F:\infoP
+      - E:/Slava/kwork/1:/app/photos
       # - ./photos:/app/photos
     environment:
       - PHOTOS_PATH=/app/photos
