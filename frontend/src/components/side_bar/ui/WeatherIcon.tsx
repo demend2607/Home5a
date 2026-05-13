@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 
-const iconModules = import.meta.glob("../icons/*.svg", { eager: false, as: "url" });
+const iconModules = import.meta.glob("../icons/*.svg", { eager: false, as: "url" }); // ts-ignore
 
 interface WeatherIconProps {
   iconKey: string;
   width?: number;
   height?: number;
-  fallbackIcon?: string; // опциональный путь к иконке-заглушке
+  fallbackIcon?: string;
 }
 
 function isNightTime(): boolean {
   const hours = new Date().getHours();
-  return hours >= 20 || hours < 6;
+  return hours >= 21 || hours < 6;
 }
 
 export default function WeatherIcon({ iconKey, width = 180, height = 180, fallbackIcon = "/icons/sunny.svg" }: WeatherIconProps) {
@@ -27,7 +27,7 @@ export default function WeatherIcon({ iconKey, width = 180, height = 180, fallba
 
       const expectedPath = `../icons/${finalKey}.svg`;
       const importer = iconModules[expectedPath];
-
+      console.log(night, "key", finalKey, "path", expectedPath);
       if (!importer) {
         if (night && !iconKey.endsWith("-night")) {
           const dayPath = `../icons/${iconKey}.svg`;

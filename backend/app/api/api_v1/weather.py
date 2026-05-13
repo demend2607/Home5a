@@ -26,13 +26,27 @@ async def get_weather(request: Request):
     temp_result, forecast_result = await asyncio.gather(
         temp_task, forecast_task, return_exceptions=True
     )
-    forecast_result = {
-        # "description": forecast_result.get("state"),
-        "description": WEATHER_DESCRIPTIONS.get(forecast_result.get("state")),
-        'icon_key': forecast_result.get("state"),
-        "temperature": forecast_result.get("attributes", {}).get("temperature"),
-        "apparent_temperature": forecast_result.get("attributes", {}).get("apparent_temperature"),
-        "humidity": forecast_result.get("attributes", {}).get("humidity"),
-        "wind_speed": forecast_result.get("attributes", {}).get("wind_speed"),
-        "presure": forecast_result.get("attributes", {}).get("pressure"), }
+    # print(forecast_result.get("state"))
+    if ((forecast_result.get("state")) == 'clear-night'):
+        forecast_result = {
+            "description": 'Ясно',
+            'icon_key': 'clear',
+            "temperature": forecast_result.get("attributes", {}).get("temperature"),
+            "apparent_temperature": forecast_result.get("attributes", {}).get("apparent_temperature"),
+            "humidity": forecast_result.get("attributes", {}).get("humidity"),
+            "wind_speed": forecast_result.get("attributes", {}).get("wind_speed"),
+            "presure": forecast_result.get("attributes", {}).get("pressure"),
+        }
+    else:
+        forecast_result = {
+            # "description": forecast_result.get("state"),
+            "description": WEATHER_DESCRIPTIONS.get(forecast_result.get("state")),
+            'icon_key': forecast_result.get("state"),
+            "temperature": forecast_result.get("attributes", {}).get("temperature"),
+            "apparent_temperature": forecast_result.get("attributes", {}).get("apparent_temperature"),
+            "humidity": forecast_result.get("attributes", {}).get("humidity"),
+            "wind_speed": forecast_result.get("attributes", {}).get("wind_speed"),
+            "presure": forecast_result.get("attributes", {}).get("pressure"),
+        }
+
     return {"temp_from_ha": temp_result, "forecast_temp": forecast_result}
