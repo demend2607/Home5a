@@ -27,7 +27,7 @@ export default function WeatherIcon({ iconKey, width = 180, height = 180, fallba
 
       const expectedPath = `../icons/${finalKey}.svg`;
       const importer = iconModules[expectedPath];
-      console.log(night, "key", finalKey, "path", expectedPath);
+
       if (!importer) {
         if (night && !iconKey.endsWith("-night")) {
           const dayPath = `../icons/${iconKey}.svg`;

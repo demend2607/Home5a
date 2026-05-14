@@ -15,7 +15,7 @@ export default function Weather() {
       {weather && (
         <div className="weather flex flex-col gap-2 py-3">
           <div className="flex justify-evenly">
-            <p className="numbers">{weather.temp_from_ha}°C</p>
+            <p className="numbers underline">{weather.temp_from_ha}°C</p>
             <p className="numbers">{weather.forecast_temp.temperature}°C</p>
           </div>
 
