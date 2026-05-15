@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import type { WeatherResponse } from "../model/types";
 import { getWeather } from "../api/get_weather";
 
-const TEN_MINUTES = 5 * 60 * 1000;
+const FIVE_MINUTES = 5 * 60 * 1000;
 
 export function useWeather() {
   const [weather, setWeather] = useState<WeatherResponse | null>(null);
@@ -14,6 +14,7 @@ export function useWeather() {
 
     const loadWeather = async () => {
       try {
+        setIsLoading(true);
         const data = await getWeather();
 
         if (!isMounted) return;
@@ -34,7 +35,7 @@ export function useWeather() {
 
     const intervalId = window.setInterval(() => {
       loadWeather();
-    }, TEN_MINUTES);
+    }, FIVE_MINUTES);
 
     return () => {
       isMounted = false;

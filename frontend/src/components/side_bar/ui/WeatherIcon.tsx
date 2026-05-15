@@ -7,6 +7,7 @@ interface WeatherIconProps {
   width?: number;
   height?: number;
   fallbackIcon?: string;
+  isLoading?: boolean;
 }
 
 function isNightTime(): boolean {
@@ -14,7 +15,7 @@ function isNightTime(): boolean {
   return hours >= 21 || hours < 6;
 }
 
-export default function WeatherIcon({ iconKey, width = 180, height = 180, fallbackIcon = "/icons/sunny.svg" }: WeatherIconProps) {
+export default function WeatherIcon({ iconKey, width = 180, height = 180, fallbackIcon = "/icons/sunny.svg", isLoading }: WeatherIconProps) {
   const [url, setUrl] = useState<string | null>(null);
 
   useEffect(() => {
@@ -63,7 +64,7 @@ export default function WeatherIcon({ iconKey, width = 180, height = 180, fallba
     };
 
     loadIcon();
-  }, [iconKey]);
+  }, [iconKey, isLoading]);
 
   if (!url) return <div style={{ width, height }} />;
 

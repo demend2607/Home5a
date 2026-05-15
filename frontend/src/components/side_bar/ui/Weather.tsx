@@ -7,6 +7,7 @@ import WeatherIcon from "./WeatherIcon";
 
 export default function Weather() {
   const { weather, isLoading, error } = useWeather();
+  console.log(isLoading);
 
   return (
     <>
@@ -22,7 +23,7 @@ export default function Weather() {
           <p className="numbers">Ощущается: {weather.forecast_temp.apparent_temperature}°C</p>
           <div className="text flex items-center flex-col">
             {weather.forecast_temp.description}
-            <WeatherIcon iconKey={weather.forecast_temp.icon_key} />
+            <WeatherIcon iconKey={weather.forecast_temp.icon_key} isLoading={isLoading} />
           </div>
 
           <div className="numbers with_icon">
