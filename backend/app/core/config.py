@@ -12,6 +12,7 @@ class ApiV1Prefix(BaseModel):
     health: str = "/health"
     photo: str = "/photo"
     weather: str = "/weather"
+    sensor: str = "/sensor"
 
 
 class ApiPrefix(BaseModel):

@@ -16,7 +16,7 @@ sensors = {
 }
 
 
-@router.get("", response_model=WeatherResponse)
+@router.get("", response_model=WeatherResponse, description="Get weather from ho gis meteo + home outside sensor")
 async def get_weather(request: Request):
     ha_client = request.app.state.ha_client
 

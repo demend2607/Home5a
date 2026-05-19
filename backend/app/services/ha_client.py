@@ -1,5 +1,5 @@
 import httpx
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List, Literal, Optional
 
 from .ha_exceptions import HAClientError, HAAuthError, HANotFoundError, HAClientConnectionError
 
@@ -47,3 +47,6 @@ class HAClient:
 
     async def get_whole_state(self, entity_id: str):
         return await self._request("GET", f"/api/states/{entity_id}")
+
+    async def call_service(self, domain: str, service: str, entity_id: str):
+        return await self._request("POST", f"/api/services/{domain}/{service}", json={"entity_id": entity_id})

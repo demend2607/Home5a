@@ -38,7 +38,7 @@ def collect_images(root_path: str = "", base_path_for_url: str = ""):
     return images
 
 
-@router.get("/list", response_model=List[GalleryImage])
+@router.get("/list", response_model=List[GalleryImage], description="Get list of all photos")
 async def list_photos():
     folder_full = os.path.join(PHOTOS_ROOT)
 
@@ -49,7 +49,7 @@ async def list_photos():
     return images
 
 
-@router.get("/{path:path}", response_class=FileResponse)
+@router.get("/{path:path}", response_class=FileResponse, description="Get photo by path")
 async def get_image(path: str):
     safe_path = os.path.normpath(path).lstrip('/')
     if '..' in safe_path or safe_path.startswith('/'):
