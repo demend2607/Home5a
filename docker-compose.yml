@@ -5,13 +5,12 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     container_name: home5a_backend
-    restart: no
+    restart: ${RESTART_POLICY}
     ports:
       - "8000:8000"
     volumes:
       - ./backend:/app
-      - E:/Slava/kwork/1:/app/photos
-      # - ./photos:/app/photos
+      - ${PHOTOS_ROOT}:/app/photos
     environment:
       - PHOTOS_PATH=/app/photos
     working_dir: /app/app
@@ -22,16 +21,20 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     container_name: home5a_frontend
-    restart: no
+    restart: ${RESTART_POLICY}
     depends_on:
       - backend
     environment:
       - CHOKIDAR_USEPOLLING=true
-      - VITE_API_URL=http://localhost:8000
+      - VITE_API_URL=${VITE_API_URL}
     volumes:
       - ./frontend:/app
       - /app/node_modules
     ports:
       - "3000:3000"
-    command: npm run dev
+    command: npm run dev -- --host 0.0.0.0
     working_dir: /app
+
+volumes:
+  home5a_photos:
+    external: true

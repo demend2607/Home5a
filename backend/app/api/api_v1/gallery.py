@@ -17,7 +17,6 @@ def collect_images(root_path: str = "", base_path_for_url: str = ""):
     images = []
 
     full_path = os.path.join(PHOTOS_ROOT, root_path)
-    print("full path", full_path)
     for index, entry in enumerate(sorted(os.listdir(full_path)), start=1):
         entry_full = os.path.join(full_path, entry)
         rel_path = os.path.join(
@@ -39,12 +38,19 @@ def collect_images(root_path: str = "", base_path_for_url: str = ""):
 
 
 @router.get("/list", response_model=List[GalleryImage], description="Get list of all photos")
-async def list_photos():
+async def list_photos(sort_by: str = "last_created"):
     folder_full = os.path.join(PHOTOS_ROOT)
 
     if not os.path.isdir(folder_full):
         raise HTTPException(404, "Папка не найдена")
     images = collect_images()
+
+    if sort_by == "last_created":
+        images = sorted(
+            images,
+            key=lambda x: x["last_created"],
+            reverse=True
+        )
 
     return images
 

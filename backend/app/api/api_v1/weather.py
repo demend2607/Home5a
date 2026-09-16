@@ -11,8 +11,8 @@ from services.weather_map import WEATHER_DESCRIPTIONS
 router = APIRouter(prefix=settings.api.v1.weather, tags=["Weather"])
 
 sensors = {
-    "temperature_sensor": "sensor.0xa4c13828c74f0ad3_temperature",
-    "temperature_forcast": "weather.home",
+    "temperature_sensor": "sensor.t06_temperatura_na_ulitse_temperature",
+    "temperature_forcast": "weather.pogoda",
 }
 
 

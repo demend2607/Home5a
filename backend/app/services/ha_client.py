@@ -40,6 +40,9 @@ class HAClient:
         except Exception as e:
             raise HAClientError(f"Неизвестная ошибка: {e}")
 
+    async def get_services_list(self):
+        return await self._request("GET", "/api/compontents")
+
     async def get_single_state(self, entity_id: str):
         responce = await self._request("GET", f"/api/states/{entity_id}")
         data = responce.get("state")

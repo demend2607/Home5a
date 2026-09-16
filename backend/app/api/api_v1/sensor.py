@@ -10,9 +10,9 @@ from core.config import settings
 
 router = APIRouter(prefix=settings.api.v1.sensor, tags=["Sensor"])
 sensors = {
-    "temperature_sensor": "sensor.0xa4c13828c74f0ad3_temperature",
-    "temperature_forcast": "weather.home",
-    "hall_light": "52_zal_switch_1"
+    # "temperature_sensor": "sensor.t06_temperatura_na_ulitse_temperature",
+    "temperature_forcast": "weather.pogoda",
+    # "hall_light": "52_zal_switch_1"
 }
 
 

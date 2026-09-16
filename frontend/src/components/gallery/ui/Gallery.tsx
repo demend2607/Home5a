@@ -3,6 +3,7 @@ import useGallery from "../../../entities/gallery/model/useGallery";
 function getFolder({ path }: { path: string }) {
   // Стереть с конца .png
   const folder = path.slice(0, -4);
+  console.log(folder);
   return folder;
 }
 export default function Gallery() {
@@ -21,8 +22,8 @@ export default function Gallery() {
   }
 
   return (
-    <div className="gallery relative h-full overflow-hidden mr-2">
-      <img src={currentImageUrl} alt={currentImage.name} className="absolute h-full w-full object-contain" />
+    <div className="gallery relative min-h-0 overflow-hidden mr-2">
+      <img src={currentImageUrl} alt={currentImage.name} className="absolute h-full w-full object-contain pb-5" />
       <p className="absolute bottom-0 text-[14px] text-white">{getFolder(currentImage)}</p>
     </div>
   );
