@@ -10,7 +10,7 @@ from core.config import settings
 router = APIRouter(prefix=settings.api.v1.health, tags=["Health"])
 sensors = {
     "temperature_sensor": "sensor.t06_temperatura_na_ulitse_temperature",
-    "temperature_forcast": "weather.pogoda",
+    "temperature_forcast": "weather.yandex_weather",
     # "hall_light": "switch.0xa4c138fbcc257467"
 }
 
@@ -22,8 +22,8 @@ async def health_check(request: Request):
     temp_task = ha_client.get_single_state(sensors["temperature_sensor"])
     forecast_task = ha_client.get_whole_state(sensors["temperature_forcast"])
 
-    forecast_result = await asyncio.gather(
+    temp_result, forecast_result = await asyncio.gather(
         temp_task, forecast_task, return_exceptions=True
     )
 
-    return {"gis_meteo": forecast_result}
+    return {"home_temp": temp_result, "yandex_weather": forecast_result}

@@ -3,7 +3,6 @@ import useGallery from "../../../entities/gallery/model/useGallery";
 function getFolder({ path }: { path: string }) {
   // Стереть с конца .png
   const folder = path.slice(0, -4);
-  console.log(folder);
   return folder;
 }
 export default function Gallery() {

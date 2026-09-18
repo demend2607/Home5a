@@ -17,24 +17,24 @@ export default function Weather() {
         <div className="weather flex flex-col gap-2 py-3">
           <div className="flex justify-evenly">
             <p className="numbers underline">{weather.temp_from_ha}°C</p>
-            <p className="numbers">{weather.forecast_temp.temperature}°C</p>
+            <p className="numbers">{weather.forecast_temp.attributes.temperature}°C</p>
           </div>
 
-          <p className="numbers">Ощущается: {weather.forecast_temp.apparent_temperature}°C</p>
+          <p className="numbers">Ощущается: {weather.forecast_temp.attributes.feels_like}°C</p>
           <div className="text flex items-center flex-col">
             {weather.forecast_temp.description}
-            <WeatherIcon iconKey={weather.forecast_temp.icon_key} isLoading={isLoading} />
+            <WeatherIcon iconKey={weather.forecast_temp.state} isLoading={isLoading} />
           </div>
 
           <div className="numbers with_icon">
-            <img src={wind} width="80" alt="" className="support_icon" /> {weather.forecast_temp.wind_speed} м/c
+            <img src={wind} width="80" alt="" className="support_icon" /> {weather.forecast_temp.attributes.wind_speed} м/c
           </div>
-          <div className="text with_icon">
+          {/* <div className="text with_icon">
             <img src={humidity} width="80" alt="" className="support_icon" />
             {weather.forecast_temp.humidity}
-          </div>
+          </div> */}
 
-          <p className="text">Давление: {Math.round(weather.forecast_temp.presure)}</p>
+          {/* <p className="text">Давление: {Math.round(weather.forecast_temp.presure)}</p> */}
         </div>
       )}
     </>
