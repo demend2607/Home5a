@@ -7,7 +7,7 @@ import WeatherIcon from "./WeatherIcon";
 
 export default function Weather() {
   const { weather, isLoading, error } = useWeather();
-  console.log(isLoading);
+  const forecast = weather?.forecast_temp;
 
   return (
     <>
@@ -16,19 +16,25 @@ export default function Weather() {
       {weather && (
         <div className="weather flex flex-col gap-2 py-3">
           <div className="flex justify-evenly">
-            <p className="numbers underline">{weather.temp_from_ha}°C</p>
-            <p className="numbers">{weather.forecast_temp.attributes.temperature}°C</p>
+            <p className="numbers underline">{weather.temp_from_ha ?? "—"}°C</p>
+            <p className="numbers">{forecast?.attributes.temperature ?? "—"}°C</p>
           </div>
 
-          <p className="numbers">Ощущается: {weather.forecast_temp.attributes.feels_like}°C</p>
-          <div className="text flex items-center flex-col">
-            {weather.forecast_temp.description}
-            <WeatherIcon iconKey={weather.forecast_temp.state} isLoading={isLoading} />
-          </div>
+          {forecast ? (
+            <>
+              <p className="numbers">Ощущается: {forecast.attributes.feels_like}°C</p>
+              <div className="text flex items-center flex-col">
+                {forecast.description}
+                <WeatherIcon iconKey={forecast.state} isLoading={isLoading} />
+              </div>
 
-          <div className="numbers with_icon">
-            <img src={wind} width="80" alt="" className="support_icon" /> {weather.forecast_temp.attributes.wind_speed} м/c
-          </div>
+              <div className="numbers with_icon">
+                <img src={wind} width="80" alt="" className="support_icon" /> {forecast.attributes.wind_speed} м/c
+              </div>
+            </>
+          ) : (
+            <p className="text">Прогноз временно недоступен</p>
+          )}
           {/* <div className="text with_icon">
             <img src={humidity} width="80" alt="" className="support_icon" />
             {weather.forecast_temp.humidity}

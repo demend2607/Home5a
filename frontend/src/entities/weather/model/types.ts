@@ -10,4 +10,7 @@ export type WeatherFromForecast = {
   attributes: yandexAttr;
 };
 
-export type WeatherResponse = { temp_from_ha: number; forecast_temp: WeatherFromForecast };
+export type WeatherResponse = {
+  temp_from_ha: number | null;
+  forecast_temp: WeatherFromForecast | null;
+};
